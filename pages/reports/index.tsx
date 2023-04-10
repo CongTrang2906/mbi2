@@ -48,7 +48,7 @@ const Tables = () => {
   const getListUser = () => {
     const id = selected ? selected.ID : "";
     fetch(
-      `http://mbi.sapotacorp.vn/api/UserAPI/GetBAChuaBaoCaoData?BAID=${id}&month=${
+      `https://mbi.sapotacorp.vn/api/UserAPI/GetBAChuaBaoCaoData?BAID=${id}&month=${
         date ? moment(date).format("YYYY-MM-DD") : ""
       }&takeNum=${pageSize}&index=${page}`,
       {
@@ -71,7 +71,7 @@ const Tables = () => {
 
   //List user
   const GetListDrop = () => {
-    fetch(`http://mbi.sapotacorp.vn/api/UserAPI/GetListBA`, {
+    fetch(`https://mbi.sapotacorp.vn/api/UserAPI/GetListBA`, {
       method: "GET",
     })
       .then((response) => response.json())

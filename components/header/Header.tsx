@@ -1,22 +1,32 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "../../assets/images/avatar.jpg";
 import Image from "next/image";
 import Link from "next/link";
-const navigation = [
-  { name: "List", href: "/reports", current: true },
-  { name: "Log Time", href: "#", current: false },
-  { name: "My Projects", href: "#", current: false },
-  { name: "My Skill", href: "#", current: false },
-  { name: "Leave", href: "#", current: false },
-];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Header = () => {
+  const [navigation, setNavigation] = useState([
+    { name: "Miss Reports", href: "/reports", current: false },
+    { name: "My Projects", href: "#", current: false },
+    { name: "My Skill", href: "#", current: false },
+    { name: "Leave", href: "#", current: false },
+  ]);
+
+  const handleItemClick = (index: number) => {
+    const updatedNavigation = navigation.map((item, i) => {
+      if (i === index) {
+        return { ...item, current: true };
+      } else {
+        return { ...item, current: false };
+      }
+    });
+    setNavigation(updatedNavigation);
+  };
   return (
     <Disclosure as="nav" className="bg-gray-800  ">
       {({ open }) => (
@@ -53,7 +63,7 @@ const Header = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block ">
                   <div className="flex space-x-4 ">
-                    {navigation.map((item) => (
+                    {navigation.map((item, index) => (
                       <Link
                         key={item.name}
                         href={item.href}
@@ -64,6 +74,7 @@ const Header = () => {
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
+                        onClick={() => handleItemClick(index)}
                       >
                         {item.name}
                       </Link>
